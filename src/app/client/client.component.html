@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swiper Test</title>
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+  <style>
+    .clients-slider {
+      width: 100%;
+      height: 200px; 
+    }
+    .swiper-slide {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 200px; 
+    }
+    .swiper-slide img {
+      width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <section id="clients" class="clients">
+    <div class="container" >
+
+      <div class="clients-slider swiper">
+        <div class="swiper-wrapper align-items-center">
+          <div class="swiper-slide"><img src="assets/img/1.png" class="img-fluid" alt=""></div>
+          <div class="swiper-slide"><img src="assets/img/1.png" class="img-fluid" alt=""></div>
+          <div class="swiper-slide"><img src="assets/img/1.png" class="img-fluid" alt=""></div>
+          <div class="swiper-slide"><img src="assets/img/1.png" class="img-fluid" alt=""></div>
+          <div class="swiper-slide"><img src="assets/img/1.png" class="img-fluid" alt=""></div>
+          <div class="swiper-slide"><img src="assets/img/1.png" class="img-fluid" alt=""></div>
+          <div class="swiper-slide"><img src="assets/img/1.png" class="img-fluid" alt=""></div>
+          <div class="swiper-slide"><img src="assets/img/1.png" class="img-fluid" alt=""></div>
+
+          <div class="swiper-slide"><img src="assets/img/1.png" class="img-fluid" alt=""></div>
+          <div class="swiper-slide"><img src="assets/img/1.png" class="img-fluid" alt=""></div>
+          <div class="swiper-slide"><img src="assets/img/1.png" class="img-fluid" alt=""></div>
+          <div class="swiper-slide"><img src="assets/img/1.png" class="img-fluid" alt=""></div>
+
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script>
+     new Swiper('.clients-slider', {
+    speed: 400,
+    loop: true,
+    autoplay: {
+      delay: 5000,
+      disableOnInteraction: false
+    },
+    slidesPerView: 'auto',
+    pagination: {
+      el: '.swiper-pagination',
+      type: 'bullets',
+      clickable: true
+    },
+    breakpoints: {
+      320: {
+        slidesPerView: 2,
+        spaceBetween: 40
+      },
+      480: {
+        slidesPerView: 3,
+        spaceBetween: 60
+      },
+      640: {
+        slidesPerView: 4,
+        spaceBetween: 80
+      },
+      992: {
+        slidesPerView: 6,
+        spaceBetween: 120
+      }
+    }
+  });
+
+  /**
+   * Testimonials slider
+   */
+  new Swiper('.testimonials-slider', {
+    speed: 600,
+    loop: true,
+    autoplay: {
+      delay: 5000,
+      disableOnInteraction: false
+    },
+    slidesPerView: 'auto',
+    pagination: {
+      el: '.swiper-pagination',
+      type: 'bullets',
+      clickable: true
+    }
+  });
+  </script>
+  
+</body>
+</html>

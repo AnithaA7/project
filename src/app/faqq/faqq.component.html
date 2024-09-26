@@ -1,0 +1,82 @@
+<div class="container my-5">
+  <form [formGroup]="faqForm" (ngSubmit)="onSubmit()" style="padding: 50px;">
+    <!-- Question Type -->
+    <div class="mb-3">
+      <label for="type" class="form-label">Question Type</label>
+      <select id="type" formControlName="type" class="form-select">
+        <option value="" disabled>Select Question Type</option>
+        <option value="technical">Technical</option>
+        <option value="non-technical">Non-Technical</option>
+      </select>
+      <div *ngIf="submitted && f['type'].errors" class="text-danger">
+        Question type is required.
+      </div>
+    </div>
+
+    <!-- Question -->
+    <div class="mb-3">
+      <label for="question" class="form-label">Question</label>
+      <input id="question" type="text" class="form-control" formControlName="question" />
+      <div *ngIf="submitted && f['question'].errors" class="text-danger">
+        Question is required (min 10 characters).
+      </div>
+    </div>
+
+    <!-- Details -->
+    <div class="mb-3">
+      <label for="details" class="form-label">Details</label>
+      <textarea id="details" rows="4" class="form-control" formControlName="details"></textarea>
+      <div *ngIf="submitted && f['details'].errors" class="text-danger">
+        Please provide detailed information (min 20 characters).
+      </div>
+    </div>
+
+    <!-- Screenshot -->
+    <div class="mb-3">
+      <label for="screenshot" class="form-label">Upload Screenshot (optional)</label>
+      <input id="screenshot" type="file" class="form-control" (change)="onFileChange($event)" />
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-primary">Submit Question</button>
+  </form>
+
+  <!-- Display Submitted Questions -->
+  <div *ngIf="questions.length > 0" class="mt-5">
+    <h3>Submitted Questions</h3>
+    <div *ngFor="let question of questions; let i = index" class="border p-3 mb-3">
+      <h4>{{ question.type }}</h4>
+      <p><strong>Question:</strong> {{ question.question }}</p>
+      <p><strong>Details:</strong> {{ question.details }}</p>
+      <img *ngIf="question.screenshot" [src]="question.screenshot" alt="Screenshot" class="img-fluid" />
+
+      <!-- Comments Section -->
+      <div>
+        <h5>Comments</h5>
+        <ul>
+          <li *ngFor="let comment of (question.comments || []); let j = index">
+            <p>{{ comment.text }}</p>
+            <ul>
+              <li *ngFor="let reply of (comment.replies || [])">
+                <p>{{ reply }}</p>
+              </li>
+            </ul>
+            <!-- Reply Form -->
+            <form (ngSubmit)="replyToComment(i, j, replyInput.value)">
+              <input #replyInput type="text" class="form-control" placeholder="Reply" />
+              <button type="submit" class="btn btn-secondary mt-2">Reply</button>
+            </form>
+          </li>
+        </ul>
+        
+        <!-- Comment Form -->
+       <form (ngSubmit)="addComment(i, commentInput.value)">
+  <input #commentInput type="text" class="form-control form-control-sm" placeholder="Add Comment" />
+  <button type="submit" class="btn btn-secondary btn-sm mt-1">Add Comment</button>
+</form>
+
+      
+      </div>
+    </div>
+  </div>
+</div>

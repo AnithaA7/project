@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPMega software</title>
+</head>
+<body>
+
+      <div class="container mt-4 animate-form animate-form-1 ">
+        <form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
+          <!-- Name, Batch No, and Course Name fields -->
+          <div class="form-group animate-form animate-form-2">
+            <label for="name">Name</label>
+            <input id="name" type="text" class="form-control" formControlName="name" placeholder="Enter your name">
+            <div *ngIf="courseForm.get('name')?.invalid && courseForm.get('name')?.touched" class="text-danger">
+              Name is required.
+            </div>
+          </div>
+      
+          <div class="form-group animate-form animate-form-3">
+            <label for="batchNo">Batch No</label>
+            <input id="batchNo" type="text" class="form-control" formControlName="batchNo" placeholder="Enter Batch No">
+            <div *ngIf="courseForm.get('batchNo')?.invalid && courseForm.get('batchNo')?.touched" class="text-danger">
+              Batch No is required.
+            </div>
+          </div>
+      
+          <div class="form-group animate-form animate-form-4">
+            <label for="courseName">Course Name</label>
+            <select id="courseName" class="form-control" formControlName="courseName" (change)="onCourseChange($event)">
+             
+              <option value="Frontend Development">Frontend Development</option>
+              <option value="Backend Development">Backend Development</option>
+              <option value="Full Stack Development">Full Stack Development</option>
+            </select>
+            <div *ngIf="courseForm.get('courseName')?.invalid && courseForm.get('courseName')?.touched" class="text-danger">
+              Course Name is required.
+            </div>
+          </div>
+          
+          <!-- Conditional Stack Options for Full Stack Development -->
+          <div class="form-group animate-form " *ngIf="showFullStackOptions">
+            <label for="stackOptions">Full Stack</label>
+            <select id="stackOptions" class="form-control" formControlName="stackOptions">
+              
+              <option value="MEAN Stack">MEAN Stack</option>
+              <option value="MERN Stack">MERN Stack</option>
+            </select>
+          </div>
+          
+      
+        <!-- HTML Status and Percentage Input -->
+<div class="form-group animate-form animate-form-5">
+  <label for="htmlStatus">HTML</label>
+  <div class="d-flex align-items-center animate-form ">
+    <select id="htmlStatus" class="form-control" formControlName="htmlStatus">
+      <option *ngFor="let option of statusOptions" [value]="option">{{ option }}</option>
+    </select>
+    <div *ngIf="courseForm.get('htmlStatus')?.invalid && courseForm.get('htmlStatus')?.touched" class="text-danger">
+      Course details required.
+    </div>
+    <input *ngIf="isInProgress('htmlStatus') && !isValidPercentage('htmlPercentage')" 
+           type="number" class="form-control ml-2" formControlName="htmlPercentage" 
+           placeholder="Progress %" min="0" max="100" step="1" 
+           (input)="updateProgress('htmlPercentage')">
+    <div *ngIf="isInProgress('htmlStatus') && isValidPercentage('htmlPercentage')" 
+         class="progress custom-progress ml-2 w-100">
+      <div class="progress-bar progress-bar-striped progress-bar-animated"
+           [ngStyle]="{'width': getPercentage('htmlPercentage') + '%', 'background-color': getProgressBarColor('htmlPercentage')}"
+           role="progressbar" 
+           [attr.aria-valuenow]="getPercentage('htmlPercentage')" 
+           aria-valuemin="0" 
+           aria-valuemax="100">
+        {{ getPercentage('htmlPercentage') }}%
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Example for CSS -->
+<div class="form-group animate-form animate-form-6">
+  <label for="cssStatus">CSS</label>
+  <div class="d-flex align-items-center ">
+    <select id="cssStatus" class="form-control" formControlName="cssStatus">
+      <option *ngFor="let option of statusOptions" [value]="option">{{ option }}</option>
+    </select>
+    <div *ngIf="courseForm.get('cssStatus')?.invalid && courseForm.get('cssStatus')?.touched" class="text-danger">
+      Course details required.
+    </div>
+    <input *ngIf="isInProgress('cssStatus') && !isValidPercentage('cssPercentage')" 
+           type="number" class="form-control ml-2" formControlName="cssPercentage" 
+           placeholder="Progress %" min="0" max="100" step="1" 
+           (input)="updateProgress('cssPercentage')">
+    <div *ngIf="isInProgress('cssStatus') && isValidPercentage('cssPercentage')" 
+         class="progress custom-progress ml-2 w-100">
+      <div class="progress-bar progress-bar-striped progress-bar-animated"
+           [ngStyle]="{'width': getPercentage('cssPercentage') + '%', 'background-color': getProgressBarColor('cssPercentage')}"
+           role="progressbar" 
+           [attr.aria-valuenow]="getPercentage('cssPercentage')" 
+           aria-valuemin="0" 
+           aria-valuemax="100">
+        {{ getPercentage('cssPercentage') }}%
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Bootstrap Status and Percentage Input -->
+<div class="form-group animate-form animate-form-7">
+  <label for="bootstrapStatus">Bootstrap</label>
+  <div class="d-flex align-items-center">
+    <select id="bootstrapStatus" class="form-control" formControlName="bootstrapStatus">
+      <option *ngFor="let option of statusOptions" [value]="option">{{ option }}</option>
+    </select>
+    <div *ngIf="courseForm.get('bootstrapStatus')?.invalid && courseForm.get('bootstrapStatus')?.touched" class="text-danger">
+      Course details required.
+    </div>
+    <input *ngIf="isInProgress('bootstrapStatus') && !isValidPercentage('bootstrapPercentage')" 
+           type="number" class="form-control ml-2" formControlName="bootstrapPercentage" 
+           placeholder="Progress %" min="0" max="100" step="1" 
+           (input)="updateProgress('bootstrapPercentage')">
+    <div *ngIf="isInProgress('bootstrapStatus') && isValidPercentage('bootstrapPercentage')" 
+         class="progress custom-progress ml-2 w-100">
+      <div class="progress-bar progress-bar-striped progress-bar-animated"
+           [ngStyle]="{'width': getPercentage('bootstrapPercentage') + '%', 'background-color': getProgressBarColor('bootstrapPercentage')}"
+           role="progressbar" 
+           [attr.aria-valuenow]="getPercentage('bootstrapPercentage')" 
+           aria-valuemin="0" 
+           aria-valuemax="100">
+        {{ getPercentage('bootstrapPercentage') }}%
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- JavaScript Status and Percentage Input -->
+<div class="form-group animate-form animate-form-8">
+  <label for="javascriptStatus">JavaScript</label>
+  <div class="d-flex align-items-center">
+    <select id="javascriptStatus" class="form-control" formControlName="javascriptStatus">
+      <option *ngFor="let option of statusOptions" [value]="option">{{ option }}</option>
+    </select>
+    <div *ngIf="courseForm.get('javascriptStatus')?.invalid && courseForm.get('javascriptStatus')?.touched" class="text-danger">
+      Course details required.
+    </div>
+    <input *ngIf="isInProgress('javascriptStatus') && !isValidPercentage('javascriptPercentage')" 
+           type="number" class="form-control ml-2" formControlName="javascriptPercentage" 
+           placeholder="Progress %" min="0" max="100" step="1" 
+           (input)="updateProgress('javascriptPercentage')">
+    <div *ngIf="isInProgress('javascriptStatus') && isValidPercentage('javascriptPercentage')" 
+         class="progress custom-progress ml-2 w-100">
+      <div class="progress-bar progress-bar-striped progress-bar-animated"
+           [ngStyle]="{'width': getPercentage('javascriptPercentage') + '%', 'background-color': getProgressBarColor('javascriptPercentage')}"
+           role="progressbar" 
+           [attr.aria-valuenow]="getPercentage('javascriptPercentage')" 
+           aria-valuemin="0" 
+           aria-valuemax="100">
+        {{ getPercentage('javascriptPercentage') }}%
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Angular Status and Percentage Input -->
+<div class="form-group animate-form animate-form-9" >
+  <label for="angularStatus">Angular</label>
+  <div class="d-flex align-items-center">
+    <select id="angularStatus" class="form-control" formControlName="angularStatus">
+      <option *ngFor="let option of statusOptions" [value]="option">{{ option }}</option>
+    </select>
+    <div *ngIf="courseForm.get('angularStatus')?.invalid && courseForm.get('angularStatus')?.touched" class="text-danger">
+      Course details required.
+    </div>
+    <input *ngIf="isInProgress('angularStatus') && !isValidPercentage('angularPercentage')" 
+           type="number" class="form-control ml-2" formControlName="angularPercentage" 
+           placeholder="Progress %" min="0" max="100" step="1" 
+           (input)="updateProgress('angularPercentage')">
+    <div *ngIf="isInProgress('angularStatus') && isValidPercentage('angularPercentage')" 
+         class="progress custom-progress ml-2 w-100">
+      <div class="progress-bar progress-bar-striped progress-bar-animated"
+           [ngStyle]="{'width': getPercentage('angularPercentage') + '%', 'background-color': getProgressBarColor('angularPercentage')}"
+           role="progressbar" 
+           [attr.aria-valuenow]="getPercentage('angularPercentage')" 
+           aria-valuemin="0" 
+           aria-valuemax="100">
+        {{ getPercentage('angularPercentage') }}%
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Node.js Status and Percentage Input -->
+<div class="form-group animate-form animate-form-10">
+  <label for="nodejsStatus">Node.js</label>
+  <div class="d-flex align-items-center">
+    <select id="nodejsStatus" class="form-control" formControlName="nodejsStatus">
+      <option *ngFor="let option of statusOptions" [value]="option">{{ option }}</option>
+    </select>
+    <div *ngIf="courseForm.get('nodejsStatus')?.invalid && courseForm.get('nodejsStatus')?.touched" class="text-danger">
+      Course details required.
+    </div>
+    <input *ngIf="isInProgress('nodejsStatus') && !isValidPercentage('nodejsPercentage')" 
+           type="number" class="form-control ml-2" formControlName="nodejsPercentage" 
+           placeholder="Progress %" min="0" max="100" step="1" 
+           (input)="updateProgress('nodejsPercentage')">
+    <div *ngIf="isInProgress('nodejsStatus') && isValidPercentage('nodejsPercentage')" 
+         class="progress custom-progress ml-2 w-100">
+      <div class="progress-bar progress-bar-striped progress-bar-animated"
+           [ngStyle]="{'width': getPercentage('nodejsPercentage') + '%', 'background-color': getProgressBarColor('nodejsPercentage')}"
+           role="progressbar" 
+           [attr.aria-valuenow]="getPercentage('nodejsPercentage')" 
+           aria-valuemin="0" 
+           aria-valuemax="100">
+        {{ getPercentage('nodejsPercentage') }}%
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Express.js Status and Percentage Input -->
+<div class="form-group animate-form animate-form-11">
+  <label for="expressjsStatus">Express.js</label>
+  <div class="d-flex align-items-center">
+    <select id="expressjsStatus" class="form-control" formControlName="expressjsStatus">
+      <option *ngFor="let option of statusOptions" [value]="option">{{ option }}</option>
+    </select>
+    <div *ngIf="courseForm.get('expressjsStatus')?.invalid && courseForm.get('expressjsStatus')?.touched" class="text-danger">
+      Course details required.
+    </div>
+    <input *ngIf="isInProgress('expressjsStatus') && !isValidPercentage('expressjsPercentage')" 
+           type="number" class="form-control ml-2" formControlName="expressjsPercentage" 
+           placeholder="Progress %" min="0" max="100" step="1" 
+           (input)="updateProgress('expressjsPercentage')">
+    <div *ngIf="isInProgress('expressjsStatus') && isValidPercentage('expressjsPercentage')" 
+         class="progress custom-progress ml-2 w-100">
+      <div class="progress-bar progress-bar-striped progress-bar-animated"
+           [ngStyle]="{'width': getPercentage('expressjsPercentage') + '%', 'background-color': getProgressBarColor('expressjsPercentage')}"
+           role="progressbar" 
+           [attr.aria-valuenow]="getPercentage('expressjsPercentage')" 
+           aria-valuemin="0" 
+           aria-valuemax="100">
+        {{ getPercentage('expressjsPercentage') }}%
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MongoDB Status and Percentage Input -->
+<div class="form-group animate-form animate-form-12">
+  <label for="mongodbStatus">MongoDB</label>
+  <div class="d-flex align-items-center">
+    <select id="mongodbStatus" class="form-control" formControlName="mongodbStatus">
+      <option *ngFor="let option of statusOptions" [value]="option">{{ option }}</option>
+    </select>
+     <div *ngIf="courseForm.get('mongodbStatus')?.invalid && courseForm.get('mongodbStatus')?.touched" class="text-danger">
+      Course details required.
+    </div>
+    <input *ngIf="isInProgress('mongodbStatus') && !isValidPercentage('mongodbPercentage')" 
+           type="number" class="form-control ml-2" formControlName="mongodbPercentage" 
+           placeholder="Progress %" min="0" max="100" step="1" 
+           (input)="updateProgress('mongodbPercentage')">
+    <div *ngIf="isInProgress('mongodbStatus') && isValidPercentage('mongodbPercentage')" 
+         class="progress custom-progress ml-2 w-100">
+      <div class="progress-bar  progress-bar-animated"
+           [ngStyle]="{'width': getPercentage('mongodbPercentage') + '%', 'background-color': getProgressBarColor('mongodbPercentage')}"
+           role="progressbar" 
+           [attr.aria-valuenow]="getPercentage('mongodbPercentage')" 
+           aria-valuemin="0" 
+           aria-valuemax="100">
+        {{ getPercentage('mongodbPercentage') }}%
+      </div>
+    </div>
+  </div>
+</div>
+
+      
+      
+          <button type="submit" class="btn mt-4 animate-form animate-form-13" [disabled]="courseForm.invalid">Submit</button>
+        </form>
+      </div>
+      
+      
+
+
+
+
+
+      <table *ngIf="allValues.length > 0" class="table table-striped table-bordered mt-3">
+        <thead>
+          <tr class="bg-success text-white text-center">
+            <th>Name</th>
+            <th>Batch Number</th>
+            <th>Course Name</th>
+            <th>Stack Options</th>
+            <th>HTML Status</th>
+            <th>HTML %</th>
+            <th>CSS Status</th>
+            <th>CSS %</th>
+            <th>Bootstrap Status</th>
+            <th>Bootstrap %</th>
+            <th>JavaScript Status</th>
+            <th>JavaScript %</th>
+            <th>Angular Status</th>
+            <th>Angular %</th>
+            <th>Nodejs Status</th>
+            <th> Nodejs %</th>
+            <th>ExpressJS Status</th>
+            <th>Expressjs %</th>
+            <th>Mongodb Status</th>
+            <th>Mongodb %</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of allValues" class="text-center">
+            <td>{{ user.name }}</td>
+            <td>{{ user.batchNo }}</td>
+            <td>{{ user.courseName }}</td>
+            <td>{{ user.stackOptions }}</td>
+            <td>{{ user.htmlStatus }}</td>
+            <td>{{ user.htmlPercentage }}%</td>
+            <td>{{ user.cssStatus }}</td>
+            <td>{{ user.cssPercentage }}%</td>
+            <td>{{ user.bootstrapStatus }}</td>
+            <td>{{user.bootstrapPercentage}}%</td>
+            <td>{{ user.javascriptStatus }}</td>
+            <td>{{ user.javascriptPercentage }}%</td>
+            <td>{{user.angularStatus}}</td>
+            <td>{{user.angularPercentage}}%</td>
+            <td>{{user.nodejsStatus}}</td>
+            <td>{{user.nodejsPercentage}}%</td>
+            <td>{{user.expressjsStatus}}</td>
+            <td>{{user.expressjsPercentage}}%</td>
+            <td>{{user.mongodbStatus}}</td>
+            <td>{{user.mongodbPercentage}}%</td>
+            <td>
+               <button class="btn btn-success" (click)="editUser(user)">Edit</button>
+              <button class="btn btn-danger" (click)="deleteUser(user.id)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table> 
+      
+      
+</body>
+</html>

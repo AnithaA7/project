@@ -25,9 +25,17 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
-            ],
-            "scripts": []
+  "src/styles.css",
+  "node_modules/bootstrap/dist/css/bootstrap.min.css",
+  "node_modules/aos/dist/aos.css",
+  "node_modules/glightbox/dist/css/glightbox.min.css",
+  "node_modules/boxicons/css/boxicons.min.css",
+  "node_modules/swiper/swiper-bundle.min.css"
+],
+
+            "scripts": [
+                "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -86,13 +94,24 @@
               "src/favicon.ico",
               "src/assets"
             ],
-            "styles": [
-              "src/styles.css"
-            ],
-            "scripts": []
+           "styles": [
+               "src/styles.css",
+               "node_modules/bootstrap/dist/css/bootstrap.min.css",
+               "node_modules/aos/dist/aos.css",
+               "node_modules/glightbox/dist/css/glightbox.min.css",
+               "node_modules/boxicons/css/boxicons.min.css",
+               "node_modules/swiper/swiper-bundle.min.css"
+],
+
+            "scripts": [
+                "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+            ]
           }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "bbc08e7f-fb5d-4e8d-acdc-d1905bb0869a"
   }
 }

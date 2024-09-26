@@ -1,0 +1,48 @@
+{
+  "course": [
+    {
+      "id": "9837",
+      "name": "Anitha A",
+      "batchNo": "9",
+      "courseName": "Full Stack Development ",
+      "htmlStatus": "Completed",
+      "htmlPercentage": "",
+      "cssStatus": "Completed",
+      "cssPercentage": "",
+      "bootstrapStatus": "Completed",
+      "bootstrapPercentage": "",
+      "javascriptStatus": "Completed",
+      "javascriptPercentage": "",
+      "angularStatus": "Completed",
+      "angularPercentage": "",
+      "nodejsStatus": "Completed",
+      "nodejsPercentage": "",
+      "expressjsStatus": "Completed",
+      "expressjsPercentage": 88,
+      "mongodbStatus": "In Progress",
+      "mongodbPercentage": 50
+    },
+    {
+      "id": "c268",
+      "name": "AnithaAlagar ",
+      "batchNo": "9",
+      "courseName": "Full Stack Development",
+      "htmlStatus": "Completed",
+      "htmlPercentage": "",
+      "cssStatus": "Completed",
+      "cssPercentage": "",
+      "bootstrapStatus": "Completed",
+      "bootstrapPercentage": "",
+      "javascriptStatus": "Completed",
+      "javascriptPercentage": "",
+      "angularStatus": "Completed",
+      "angularPercentage": "",
+      "nodejsStatus": "Completed",
+      "nodejsPercentage": "",
+      "expressjsStatus": "Completed",
+      "expressjsPercentage": "",
+      "mongodbStatus": "Completed",
+      "mongodbPercentage": ""
+    }
+  ]
+}
