@@ -20,7 +20,6 @@ export class CoursedetailsService {
     return this.http.get<any>(`${this.apiUrl}/data`); // Correct endpoint
   }
 
-
   updateForm(id: number, updatedData: any): Observable<any> {
     return this.http.put(`http://localhost:5000/updateForm/${id}`, updatedData);
   }
